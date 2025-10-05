@@ -1,5 +1,5 @@
-**Proyecto Integrador: Ecuaciones Diferenciales Ordinarias y Matemática Numérica
-*📌 Información General
+# Proyecto Integrador: Ecuaciones Diferenciales Ordinarias y Matemática Numérica
+## 📌 Información General
 Curso: Segundo Año, Ciencia de la Computación
 
 Universidad: Universidad de La Habana
@@ -8,17 +8,17 @@ Período: Curso 2025-2026
 
 Fecha de Inicio: 25 de Septiembre de 2025
 
-*👥 Integrantes del Equipo
+## 👥 Integrantes del Equipo
 Ernesto J. Govea
 
 Olivia Ortiz Arbolaez
 
 Anthony Cruz Gracia
 
-*🎯 Objetivo del Proyecto
+## 🎯 Objetivo del Proyecto
 Desarrollar un proyecto integrador que aplique conceptos de Ecuaciones Diferenciales Ordinarias (EDO) y Matemática Numérica (MN) para resolver problemas modelados mediante EDOs, enfatizando el análisis numérico, validación de algoritmos y visualización interactiva de resultados.
 
-*📋 Descripción del Proyecto
+## 📋 Descripción del Proyecto
 Componentes Principales
 Modelación
 
@@ -58,7 +58,7 @@ Cálculo y clasificación de puntos críticos
 
 Construcción e interpretación del plano de fase
 
-*📁 Entregables
+## 📁 Entregables
 📄 Informe Técnico
 Máximo 10 páginas usando plantilla JCE MatCom
 
@@ -68,7 +68,7 @@ Tablas comparativas de algoritmos (errores, orden de convergencia, costo)
 
 Gráficos de soluciones, diagramas de fase y mapas de bifurcación
 
-*💻 Código Interactivo
+## 💻 Código Interactivo
 IPython Notebooks o dashboards en Python
 
 Librerías: matplotlib, plotly, scipy
@@ -81,7 +81,7 @@ Visualización comparativa de métodos numéricos
 
 Exploración de bifurcaciones y estabilidad de puntos críticos
 
-*🗓️ Cronograma
+## 🗓️ Cronograma
 Semana 3: Formación de equipos ✅
 
 Semana 4: Asignación de problemas y orientación docente
@@ -94,7 +94,7 @@ Presentación: 10 minutos exposición + 5 minutos preguntas
 
 Entrega final: Informe y código interactivo
 
-*🛠️ Tecnologías Utilizadas
+## 🛠️ Tecnologías Utilizadas
 Python 3.x
 
 Jupyter Notebook
