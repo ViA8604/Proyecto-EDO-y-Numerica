@@ -9,11 +9,11 @@ Período: Curso 2025-2026
 Fecha de Inicio: 25 de Septiembre de 2025
 
 ## 👥 Integrantes del Equipo
-Ernesto J. Govea
+Ernesto J. Govea Varona
 
-Olivia Ortiz Arbolaez
+Olivia Ortiz Arboláez
 
-Anthony Cruz Gracia
+Anthony Cruz García
 
 ## 🎯 Objetivo del Proyecto
 Desarrollar un proyecto integrador que aplique conceptos de Ecuaciones Diferenciales Ordinarias (EDO) y Matemática Numérica (MN) para resolver problemas modelados mediante EDOs, enfatizando el análisis numérico, validación de algoritmos y visualización interactiva de resultados.
