@@ -13,11 +13,7 @@ punto=Punto(0,0)
 x_final=1
 paso=1
 orden_rugge_kutta=4
-def edo(x,y):
-    return x
+T = 80
 solucion_euler=euler.calcular_punto_con_euler(punto,x_final,edo,paso)
 solucion_euler_mejorado=euler_mejorado.calcular_punto_con_euler_mejorado(punto,x_final,edo,paso)
 solucion_rugge_kutta=rugge_kutta.calcular_punto_con_rugge_kutta(punto,x_final,edo,paso,orden_rugge_kutta)
-print(solucion_euler.x,solucion_euler.y)
-print(solucion_rugge_kutta.x,solucion_rugge_kutta.y)
-print(solucion_euler_mejorado.x,solucion_euler_mejorado.y)
