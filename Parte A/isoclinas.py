@@ -1,72 +1,47 @@
 import numpy as np
+import matplotlib
+matplotlib.use('Qt5Agg')  # Backend interactivo Qt5 para mostrar gráficos
 import matplotlib.pyplot as plt
 
-# --- 1. Definir los Parámetros y la EDO ---
-Ta = 70.0  # Temperatura ambiente 
-k = np.log(0.5)  # Constante de enfriamiento, k = ln(0.5) [cite: 81]
+# ecuación en forma de función
+k = np.log(2)
+Ta = 70
 
 def f(T):
-    """Función de la pendiente (lado derecho de la EDO): dT/dt = k(T - Ta)"""
-    return k * (T - Ta)
+    return -k*(T - Ta)
 
-# --- 2. Definir la Malla (Grid) para el Gráfico ---
+#Crear los datos del campo de pendientes ... Seleccionar un rango razonable de temperaturas (por ejemplo, 60°F a 100°F) y tiempos (0 a 5 h).
+#
+t_vals = np.linspace(0, 5, 20)
+T_vals = np.linspace(60, 100, 20)
+T, t = np.meshgrid(T_vals, t_vals)
+dTdt = f(T)
 
-# Definimos el rango de tiempo (eje x) y temperatura (eje y)
-# Usaremos un rango de temperatura relevante (cercano al ambiente hasta la temperatura al morir)
-t_min, t_max = -3, 3  # Rango de tiempo en horas (incluye tiempo antes de t=0 (mediodía))
-T_min, T_max = 60, 100 # Rango de temperatura en °F
+#Dibujar el campo de direcciones (isoclinas)
 
-# Crear puntos uniformes en ambos ejes
-t = np.linspace(t_min, t_max, 20)  # 20 puntos de tiempo
-T = np.linspace(T_min, T_max, 20)  # 20 puntos de temperatura
+#Líneas azules inclinadas hacia abajo: indican que 𝑇 disminuye si es mayor que 70.
+#Líneas horizontales cerca de 70: muestran que ahí la derivada es 0 → equilibrio.
+#El campo de pendientes apunta hacia el equilibrio, confirmando que es estable.
 
-# Crear la malla 2D a partir de los vectores t y T
-T_grid, t_grid = np.meshgrid(T, t)
-
-# --- 3. Calcular la Pendiente en cada Punto de la Malla ---
-
-# La pendiente es solo una función de T (dT/dt = f(T)).
-# La componente U (dirección en t) siempre es 1 (para representar dT/dt).
-U = np.ones(T_grid.shape)
-
-# La componente V (dirección en T) es la pendiente f(T).
-V = f(T_grid)
-
-# Normalizar los vectores (U, V) para que todos tengan la misma longitud en la gráfica,
-# lo que nos ayuda a enfocarnos solo en la dirección.
-N = np.sqrt(U**2 + V**2)
-U = U / N
-V = V / N
-
-# --- 4. Generar la Gráfica ---
-
-plt.figure(figsize=(10, 6))
-
-# Dibujar el campo de direcciones
-# 't_grid' y 'T_grid' son las coordenadas de inicio del vector.
-# 'U' y 'V' son las componentes del vector.
-plt.quiver(t_grid, T_grid, U, V, color='gray', alpha=0.8)
-
-# Dibujar la línea de equilibrio (Isoclina de pendiente 0)
-plt.axhline(Ta, color='r', linestyle='--', label=f'Temperatura Ambiente (T={Ta}°F)')
-
-# Añadir etiquetas y título
-plt.title('Campo de Direcciones (Isoclinas) para la Ley de Enfriamiento de Newton')
-plt.xlabel('Tiempo (t) [horas]')
-plt.ylabel('Temperatura (T) [°F]')
-plt.grid(True, linestyle=':', alpha=0.6)
+plt.figure(figsize=(8,6))
+plt.quiver(t, T, np.ones_like(dTdt), dTdt, color="blue")
+plt.title("Campo de pendientes e isoclinas de la Ley de Newton")
+plt.xlabel("Tiempo (horas)")
+plt.ylabel("Temperatura (°F)")
+plt.axhline(70, color="red", linestyle="--", label="Equilibrio (70°F)")
 plt.legend()
 plt.show()
 
-# --- 5. Trazar una Solución (Opcional, pero muy útil para la interpretación) ---
+#Agregar la solución real sobre el campo (opcional y útil)
+t_line = np.linspace(0, 5, 100)
+T_line = Ta + 10 * np.exp(-k * t_line)
 
-# Solución analítica para la víctima (usando t=0 como mediodía, T0=80, k=ln(0.5))
-T0_cuerpo = 80.0
-C = T0_cuerpo - Ta
-t_sol = np.linspace(t_min, t_max, 100)
-T_sol = Ta + C * np.exp(k * t_sol)
-plt.plot(t_sol, T_sol, color='blue', linewidth=2, label='Trayectoria del Cuerpo (t=0 en 12 P.M.)')
-
-plt.ylim(65, 105) # Ajustar el límite y
+plt.figure(figsize=(8,6))
+plt.quiver(t, T, np.ones_like(dTdt), dTdt, color="lightgray")
+plt.plot(t_line, T_line, color="red", linewidth=2, label="Solución analítica")
+plt.xlabel("Tiempo (horas)")
+plt.ylabel("Temperatura (°F)")
+plt.title("Solución analítica y campo de pendientes")
+plt.axhline(70, color="black", linestyle="--", label="Equilibrio 70°F")
 plt.legend()
 plt.show()
