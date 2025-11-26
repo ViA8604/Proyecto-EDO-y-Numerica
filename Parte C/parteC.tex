@@ -1,0 +1,133 @@
+\documentclass{article}
+
+% --- Codificación y idioma ---
+\usepackage[utf8]{inputenc} % Codificación UTF-8
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% --- Márgenes ---
+\usepackage[margin=2.5cm]{geometry}
+
+% --- Gráficos y tablas ---
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{siunitx}
+
+% --- Matemáticas ---
+\usepackage{amsmath,amssymb,amsthm}
+
+
+\begin{document}
+
+\title{Solución: Plano fase y Estabilidad}
+\author{}
+\date{}
+\maketitle
+
+\section{Problema}
+Considere el siguiente sistema lineal numérico que modela un sólido con temperatura interna $X(t)$ en contacto con una ``capa'' o camisa $Y(t)$, estando el ambiente fijo en $A = 70$ (se trabaja con temperaturas relativas $x = X - A$, $y = Y - A$):
+
+\begin{equation}
+    \begin{cases}
+        \dfrac{dx}{dt} = -4(x - y), \\
+        \dfrac{dy}{dt} = -y
+    \end{cases}
+\end{equation}
+
+\begin{enumerate}
+    \item Calcule los puntos críticos y clasifíquelos (tipo y estabilidad).
+    \item Verifíquelo construyendo el plano de fase y explique brevemente el significado físico de las trayectorias.
+\end{enumerate}
+
+\section{Solución}
+
+\subsection{Puntos críticos}
+
+Para encontrar los puntos críticos, igualamos a cero ambas ecuaciones:
+
+\begin{align}
+    \frac{dx}{dt} &= -4(x - y) = 0 \label{eq:dx} \\
+    \frac{dy}{dt} &= -y = 0 \label{eq:dy}
+\end{align}
+
+De la ecuación (\ref{eq:dy}): $-y = 0 \implies y = 0$
+
+Sustituyendo en (\ref{eq:dx}): $-4(x - 0) = 0 \implies -4x = 0 \implies x = 0$
+
+Por lo tanto, el único punto crítico es:
+\[
+(x, y) = (0, 0)
+\]
+
+\subsection{Clasificación del punto crítico}
+
+Escribimos el sistema en forma matricial:
+\[
+\begin{pmatrix}
+\dot{x} \\ \dot{y}
+\end{pmatrix}
+=
+\begin{pmatrix}
+-4 & 4 \\
+0 & -1
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+\]
+
+Calculamos los autovalores de la matriz:
+\[
+A = \begin{pmatrix}
+-4 & 4 \\
+0 & -1
+\end{pmatrix}
+\]
+
+El polinomio característico es:
+\[
+\det(A - \lambda I) = \det\begin{pmatrix}
+-4-\lambda & 4 \\
+0 & -1-\lambda
+\end{pmatrix} = (-4-\lambda)(-1-\lambda) - (4)(0)
+\]
+\[
+= (\lambda + 4)(\lambda + 1) = 0
+\]
+
+Los autovalores son:
+\[
+\lambda_1 = -4, \quad \lambda_2 = -1
+\]
+
+\begin{align}
+    (\text{tr } A)^{2} &> 4 |A| \\
+    25 &> 16
+\end{align}
+
+
+\textbf{Clasificación:}
+\begin{itemize}
+    \item Ambos autovalores son reales y negativos
+    \item $\lambda_1 = -4 < 0$, $\lambda_2 = -1 < 0$ , raíces de la ecuación característica.
+    \item Tipo de equilibrio: \textbf{Nodo estable} , \[(tr A)^2 > 4 |A| \]
+    \item Estabilidad: \textbf{Asintóticamente estable}
+\end{itemize}
+
+\subsection{Significado físico}
+
+El punto crítico $(0, 0)$ corresponde a:
+\[
+x = X - 70 = 0 \implies X = 70
+\]
+\[
+y = Y - 70 = 0 \implies Y = 70
+\]
+
+Esto significa que el sistema alcanza el equilibrio térmico cuando tanto el sólido como la capa tienen la misma temperatura del ambiente ($70^\circ$). Las trayectorias representan cómo las temperaturas relativas $x$ y $y$ decaen exponencialmente hacia cero, indicando que el sistema tiende al equilibrio térmico con el ambiente.
+
+\end{document}
