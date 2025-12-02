@@ -1,0 +1,572 @@
+%===================================================================================
+% JORNADA CIENTÍFICA ESTUDIANTIL - MATCOM, UH
+%===================================================================================
+% Esta plantilla ha sido diseñada para ser usada en los artículos de la
+% Jornada Científica Estudiantil de MatCom.
+%
+% Por favor, siga las instrucciones de esta plantilla y rellene en las secciones
+% correspondientes.
+%
+% NOTA: Necesitará el archivo 'jcematcom.sty' en la misma carpeta donde esté este
+%       archivo para poder utilizar esta plantila.
+%===================================================================================
+
+
+
+%===================================================================================
+% PREÁMBULO
+%-----------------------------------------------------------------------------------
+\documentclass[a4paper,10pt]{article}
+
+%===================================================================================
+% Paquetes
+%-----------------------------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{jcematcom}
+% Compatibility: neutralize tutor/title header behavior from the style so the
+% template doesn't print "Tutor(es):" or the Jornada/tribunal heading.
+% We redefine the internal macros to be no-ops here (local, safe change).
+\makeatletter
+% Don't print the tutor line in the title block
+\@ifundefined{@starttutors}{\newcommand{\@starttutors}{}}{\renewcommand{\@starttutors}{}}
+% Ensure there is no tutor content
+\@ifundefined{@tutors}{\newcommand{\@tutors}{}}{\renewcommand{\@tutors}{}}
+% Neutralize the automatic journal heading (avoid 'Jornada Científica...' text)
+\@ifundefined{jcematcomheading}{\newcommand{\jcematcomheading}[3]{\thispagestyle{plain}}}{\renewcommand{\jcematcomheading}[3]{\thispagestyle{plain}}}
+\makeatother
+\providecommand{\tutors}{}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage[pdftex]{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{booktabs}
+%-----------------------------------------------------------------------------------
+% Configuración
+%-----------------------------------------------------------------------------------
+\hypersetup{colorlinks,%
+	    citecolor=black,%
+	    filecolor=black,%
+	    linkcolor=black,%
+	    urlcolor=blue}
+
+%===================================================================================
+
+
+
+%===================================================================================
+% Presentacion
+%-----------------------------------------------------------------------------------
+% Título
+%-----------------------------------------------------------------------------------
+\title{Proyecto Conjunto de Ecuaciones Diferenciales Ordinarias y Matemática Numérica}
+
+%-----------------------------------------------------------------------------------
+% Autores
+%-----------------------------------------------------------------------------------
+\author{\\
+\name Ernesto J. Govea Varona \email \href{mailto:ernesto.govea@estudiantes.matcom.uh.cu}{ernesto.govea@estudiantes.matcom.uh.cu}
+	\\ \addr Grupo C211 \AND
+\name Anthony Cruz García \email \href{mailto:anthony.cruz.estudiantes.matcom.uh.cu}{anthony.cruz.estudiantes.matcom.uh.cu}
+	\\ \addr Grupo C211 \AND
+\name Olivia Ortiz Arboláez \email \href{mailto:olivia.ortiz@estudiantes.matcom.uh.cu}{olivia.ortiz@estudiantes.matcom.uh.cu}
+	\\ \addr Grupo C211
+}
+%-----------------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------------
+% Headings (template heading neutralized above)
+%-----------------------------------------------------------------------------------
+% Original: \jcematcomheading{\the\year}{1-\pageref{end}}{A. Uno, A. Dos}
+% The style's heading was neutralized; leave short headings blank so nothing
+% template-specific appears in the page headers.
+\ShortHeadings{}{}
+%===================================================================================
+
+
+
+%===================================================================================
+% DOCUMENTO
+%-----------------------------------------------------------------------------------
+\begin{document}
+
+%-----------------------------------------------------------------------------------
+\maketitle
+
+%===================================================================================
+% Resumen y Abstract
+%-----------------------------------------------------------------------------------
+\selectlanguage{spanish} % Para producir el documento en Español
+
+%-----------------------------------------------------------------------------------
+% Resumen en Español
+%-----------------------------------------------------------------------------------
+\begin{abstract}
+
+  Se presenta un estudio aplicado de enfriamiento post-mortem mediante EDO para
+  estimar la hora de la muerte a partir de mediciones de temperatura. En la
+  Parte A se aplica la ley de Newton para ajustar datos y obtener la estimación,
+  apoyada por isoclinas para una interpretación visual. La Parte B examina un
+  modelo no lineal con parámetro µ: se identifican equilibrios, se analiza su
+  estabilidad y se construye el diagrama de bifurcación para mostrar cambios de
+  régimen térmico. La Parte C introduce un modelo de dos compartimentos (núcleo
+  y capa externa), clasifica puntos críticos e interpreta las trayectorias en el
+  plano de fase. El enfoque combina análisis y simulaciones con aplicaciones
+  forenses.
+
+\end{abstract}
+
+%-----------------------------------------------------------------------------------
+% English Abstract
+%-----------------------------------------------------------------------------------
+\vspace{0.5cm}
+
+\begin{enabstract}
+
+	This work presents an applied study of post-mortem cooling using ODEs to
+	estimate time of death from temperature measurements. Part A uses Newton's
+	law to fit data and determine the time of death, aided by isoclines for visual
+	interpretation. Part B examines a one-dimensional nonlinear model with
+	parameter µ: equilibria are identified, stability analyzed, and a bifurcation
+	diagram constructed to illustrate transitions in thermal regime. Part C
+	proposes a two-compartment model (core and outer layer), classifies critical
+	points and interprets phase-plane trajectories. The approach combines
+	analytical results and numerical simulations with forensic applications.
+
+\end{enabstract}
+
+%-----------------------------------------------------------------------------------
+% Palabras clave
+%-----------------------------------------------------------------------------------
+\begin{keywords}
+ley de enfriamiento de Newton; modelos compartimentales; isoclinas; estabilidad; métodos numéricos; termometría forense
+\end{keywords}
+
+%-----------------------------------------------------------------------------------
+% Temas
+%-----------------------------------------------------------------------------------
+\begin{topics}
+	Enfriamiento post-mortem y modelos de transferencia de calor.\\
+	Modelos compartimentales; análisis de estabilidad (isoclinas y plano de fase) y métodos numéricos aplicados.
+\end{topics}
+
+
+%-----------------------------------------------------------------------------------
+% NO BORRAR ESTAS LINEAS!
+%-----------------------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------------------
+
+% --- Minipage con imágenes forense y clock (entre abstract y introducción)
+\begin{center}
+\begin{minipage}{0.28\textwidth}
+	\centering
+	\IfFileExists{Figures/forense.png}{%
+		\includegraphics[width=0.90\linewidth]{Figures/forense.png}%
+	}{%
+		\small\texttt{Imagen Figures/forense.png no encontrada.}%
+	}
+	\vspace{-1.5mm}
+	\small Figura: Forense
+\end{minipage}\hspace{0.02\textwidth}
+\begin{minipage}{0.28\textwidth}
+	\centering
+	\IfFileExists{Figures/clock.png}{%
+		\includegraphics[width=0.90\linewidth]{Figures/clock.png}%
+	}{%
+		\small\texttt{Imagen Figures/clock.png no encontrada.}%
+	}
+	\vspace{-1.5mm}
+	\small Figura: Reloj
+\end{minipage}
+\end{center}
+
+
+
+%===================================================================================
+
+%===================================================================================
+% Introducción
+%-----------------------------------------------------------------------------------
+\section{Introducción}\label{sec:intro}
+%-----------------------------------------------------------------------------------
+	Los procesos de transferencia de calor intervienen en fenómenos de la vida
+	diaria y en aplicaciones tecnológicas y forenses. Las ecuaciones diferenciales
+	ordinarias (EDO) proporcionan un lenguaje compacto y eficaz para describir
+	estas dinámicas: permiten obtener soluciones explícitas en modelos lineales y
+	ofrecen, mediante herramientas cualitativas (campos de pendientes, isoclinas,
+	planos de fase y análisis de bifurcaciones), una comprensión profunda cuando
+	aparecen no linealidades o acoplamientos entre componentes.
+
+	El propósito de este trabajo es aplicar y comparar técnicas analíticas y
+	cualitativas de EDO en problemas térmicos sencillos pero representativos. A
+	partir del enfoque clásico presentado en Edwards \& Penney (4.ª ed., págs.
+	40--41) se estudian ejemplos que ilustran cómo extraer conclusiones físicas a
+	partir de modelos matemáticos: estimación de parámetros a partir de datos,
+	interpretación de cambios de régimen ligados a parámetros del sistema y
+	análisis de la dinámica acoplada en modelos de múltiples compartimentos. La
+	presentación se orienta a ser útil tanto en contextos docentes como en
+	aplicaciones prácticas, priorizando la claridad y la interpretación física
+	sobre la enumeración técnica de resultados.
+
+%===================================================================================
+
+
+
+%===================================================================================
+% Desarrollo
+%-----------------------------------------------------------------------------------
+\section{Desarrollo}\label{sec:dev}
+%-----------------------------------------------------------------------------------%-----------------------------------------------------------------------------------
+	\subsection{Parte A --- Ley de Newton e isoclinas}\label{sub:parteA}
+
+	\subsubsection{Planteamiento y datos}
+	\medskip
+	\begin{itemize}
+		\item Temperatura ambiente: $T_a = 70\,^{\circ}\mathrm{F}$ (constante).
+		\item Temperatura corporal inicial (momento de la muerte): $T(0)=98.6\,^{\circ}\mathrm{F}$.
+		\item Mediciones: $T=80\,^{\circ}\mathrm{F}$ a las 12:00 y $T=75\,^{\circ}\mathrm{F}$ a la 13:00.
+	\end{itemize}
+
+	\subsubsection{Solución}
+	\medskip
+	Por la ley de Newton del enfriamiento:
+	\begin{equation}\label{eq:newton}
+		\frac{dT}{dt} = -k\,(T-T_a),\qquad k>0.
+	\end{equation}
+
+	La solución general (con $t$ en horas desde la muerte) es
+	\begin{equation}\label{eq:solNewton}
+		T(t)=T_a + (T(0)-T_a)e^{-k t} = 70 + 28.6\,e^{-k t}.
+	\end{equation}
+
+	Denotando por $t_1$ las horas transcurridas entre la muerte y las 12:00 se obtiene
+	las dos ecuaciones siguientes para los datos medidos:
+	\begin{align}
+		T(t_1) &= 70+28.6\,e^{-k t_1}=80 \\%
+		&\Rightarrow\quad e^{-k t_1}=\frac{10}{28.6}, \notag\\
+		T(t_1+1) &= 70+28.6\,e^{-k(t_1+1)}=75 \\%
+		&\Rightarrow\quad e^{-k(t_1+1)}=\frac{5}{28.6}. \notag
+	\end{align}
+
+	Dividiendo ambas expresiones se obtiene $e^{-k}=\tfrac{1}{2}$, por tanto
+	\begin{equation}
+		k = \ln 2 \approx 0.6931\ \mathrm{h}^{-1}.
+	\end{equation}
+
+	Sustituyendo en cualquiera de las expresiones para recuperar $t_1$:
+	\begin{equation}
+		t_1 = -\frac{\ln(10/28.6)}{\ln 2} \approx 1.515\ \mathrm{h} \approx 1\ \mathrm{h}\;30\ \mathrm{min}\;54\ \mathrm{s}.
+	\end{equation}
+
+	Por tanto, en el marco del modelo y las hipótesis formuladas, la estimación de la hora de la muerte es aproximadamente 1.515 horas antes de las 12:00 (10:29 AM).
+
+	\medskip
+	\paragraph{Interpretación cualitativa e isoclinas}
+	La ecuación (\ref{eq:newton}) depende únicamente de $T$, por lo que las isoclinas en el plano $(t,T)$ son líneas horizontales. El campo de pendientes indica que:
+	\begin{itemize}
+		\item Si $T>T_a$ entonces $dT/dt<0$ (enfriamiento hacia $T_a$).
+		\item Si $T<T_a$ entonces $dT/dt>0$ (calentamiento hacia $T_a$).
+		\item En $T=T_a$ la derivada es nula; $T_a$ es un equilibrio estable.
+	\end{itemize}
+
+	Las soluciones decaen exponencialmente hacia $T_a$ sin cruzarse; el tiempo característico del proceso es $1/k$.
+	\newpage
+% --- Figura: isoclinas y campo de pendientes (Parte A)
+\begin{figure}[htb]
+	\centering
+		\IfFileExists{Figures/isoclinas_partA.png}{%
+			\includegraphics[width=0.95\textwidth]{Figures/isoclinas_partA.png}%
+		}{%
+			\centering\small\texttt{Imagen Figures/isoclinas\_partA.png no encontrada.}%
+		}
+	\caption{Isoclinas y campo de pendientes para la Ley de Newton (Parte A).}
+	\label{fig:isoclinas_partA}
+\end{figure}
+
+\paragraph{Análisis Numérico}
+Se compararon los métodos de Euler, Euler Mejorado y Runge-Kutta 4 (RK4) con la solución analítica $T(2)=72.5\,^{\circ}\mathrm{F}$.
+
+\begin{table}[htb]
+\centering
+\caption{Comparación numérica en $t=2$ horas}
+\begin{tabular}{l c r r l}
+	\toprule
+	Método & $N$ & $T(2)\,(^{\circ}\mathrm{F})$ & Error & Costo \\
+	\midrule
+	Analítica & N/A & 72.500000 & 0.000000 & N/A \\
+	Euler & 1 & 72.516834 & 0.016834 & N \\
+	Euler Mejorado & 2 & 72.500138 & 0.000138 & 2N \\
+	Runge-Kutta 4 & 4 & 72.500000 & 0.000000 & 4N \\
+	\bottomrule
+\end{tabular}
+\end{table}
+
+RK4 ofrece la mayor precisión a un costo computacional eficiente.
+
+ 
+\subsection{Parte B --- Bifurcación}\label{sub:parteB}
+\medskip
+\subsubsection{Resolución:} 
+Considere la EDO adimensional,
+\begin{equation}\label{eq:bif}
+	u' = \mu\,u + u^{3},\qquad \mu\in\mathbb{R}.
+\end{equation}
+
+Defina $f(u;\mu)=\mu u + u^{3}$; entonces $f'(u)=\mu + 3u^{2}$. Los puntos de equilibrio se obtienen resolviendo
+\begin{equation}
+	\mu\,u + u^{3} = 0 \quad\Longrightarrow\quad u(\mu + u^{2})=0.
+\end{equation}
+
+Por tanto las soluciones estacionarias son:
+\begin{itemize}
+	\item $u=0$, válida para todo $\mu$.
+	\item $\mu + u^{2}=0\ \Rightarrow\ u=\pm\sqrt{-\mu}$, que existen sólo para $\mu<0$.
+\end{itemize}
+
+\paragraph{Estabilidad (análisis lineal)}
+Linearizando alrededor de un equilibrio $u^*$ se usa $f'(u^* )$:
+\begin{itemize}
+	\item En $u=0$: $f'(0)=\mu$. Luego $u=0$ es linealmente estable si $\mu<0$ y linealmente inestable si $\mu>0$. En $\mu=0$ la linealización falla y el término cúbico domina: para pequeñas perturbaciones $\dot u\approx u^{3}$, lo que muestra inestabilidad no lineal en $u=0$.
+	\item En $u=\pm\sqrt{-\mu}$ (cuando $\mu<0$): usando $u^{2}=-\mu$ se obtiene
+	\[f'\big(\pm\sqrt{-\mu}\big)=\mu+3(-\mu)=-2\mu>0,\]
+	por lo que estas ramas no triviales son linealmente inestables.
+\end{itemize}
+
+\paragraph{Interpretación y diagrama}
+La rama trivial $u=0$ existe para todo $\mu$ y cambia su estabilidad en $\mu=0$. Las ramas no triviales $\pm\sqrt{-\mu}$ aparecen para $\mu<0$ y son inestables; en $\mu=0$ dichas ramas colapsan en la trivial. Debido a la simetría $u\mapsto -u$ y la estructura observada, la bifurcación corresponde a un pitchfork subcrítico: al aumentar $\mu$ a través de $0$ la solución trivial pierde estabilidad y las ramas no triviales inestables se anulan en el punto de bifurcación.
+
+% --- Figura: diagrama de bifurcación (insertada tras Parte B)
+\begin{figure}[htb]
+	\centering
+	\IfFileExists{Figures/bifurcation_mu_u.png}{%
+		\includegraphics[width=0.95\textwidth]{Figures/bifurcation_mu_u.png}%
+	}{%
+		\centering\small\texttt{Imagen Figures/bifurcation\_mu\_u.png no encontrada.}%
+	}
+	\caption{Diagrama de bifurcación para $\dot u=\mu u + u^{3}$. Las ramas
+		no triviales $u=\pm\sqrt{-\mu}$ aparecen para $\mu<0$ y son inestables; la
+		rama trivial $u=0$ cambia su estabilidad en $\mu=0$.}
+	\label{fig:bifurcation}
+\end{figure}
+
+\subsection{Parte C --- Plano de fase y Estabilidad}\label{sub:parteC}
+
+\subsubsection*{Problema}
+Considere el siguiente sistema lineal numérico que modela un sólido con temperatura interna $X(t)$ en contacto con una ``capa'' o camisa $Y(t)$, estando el ambiente fijo en $A = 70$ (se trabaja con temperaturas relativas $x = X - A$, $y = Y - A$):
+
+\begin{equation}
+	\begin{cases}
+		\dfrac{dx}{dt} = -4(x - y), \\
+		\dfrac{dy}{dt} = -y
+	\end{cases}
+\end{equation}
+
+\begin{enumerate}
+	\item Calcule los puntos críticos y clasifíquelos (tipo y estabilidad).
+	\item Verifíquelo construyendo el plano de fase y explique brevemente el significado físico de las trayectorias.
+\end{enumerate}
+
+\subsubsection*{Solución}
+
+\subsubsection*{Puntos críticos}
+
+Para encontrar los puntos críticos, igualamos a cero ambas ecuaciones:
+
+\begin{align}
+	\frac{dx}{dt} &= -4(x - y) = 0 \label{eq:dx} \\
+	\frac{dy}{dt} &= -y = 0 \label{eq:dy}
+\end{align}
+
+De la ecuación (\ref{eq:dy}): $-y = 0 \implies y = 0$
+
+Sustituyendo en (\ref{eq:dx}): $-4(x - 0) = 0 \implies -4x = 0 \implies x = 0$
+
+Por lo tanto, el único punto crítico es:
+\[
+(x, y) = (0, 0)
+\]
+
+\subsubsection*{Clasificación del punto crítico}
+
+Escribimos el sistema en forma matricial:
+\[
+\begin{pmatrix}
+\dot{x} \\ \dot{y}
+\end{pmatrix}
+=
+\begin{pmatrix}
+-4 & 4 \\
+0 & -1
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+\]
+
+Calculamos los autovalores de la matriz:
+\[
+A = \begin{pmatrix}
+-4 & 4 \\
+0 & -1
+\end{pmatrix}
+\]
+
+El polinomio característico es:
+\[
+\det(A - \lambda I) = \det\begin{pmatrix}
+-4-\lambda & 4 \\
+0 & -1-\lambda
+\end{pmatrix} = (-4-\lambda)(-1-\lambda) - (4)(0)
+\]
+\[
+= (\lambda + 4)(\lambda + 1) = 0
+\]
+
+Los autovalores son:
+\[
+\lambda_1 = -4, \quad \lambda_2 = -1
+\]
+
+\begin{align}
+	(\text{tr } A)^{2} &> 4 |A| \\
+	25 &> 16
+\end{align}
+
+	\textbf{Clasificación:}
+\begin{itemize}
+	\item Ambos autovalores son reales y negativos
+	\item $\lambda_1 = -4 < 0$, $\lambda_2 = -1 < 0$ , raíces de la ecuación característica.
+	\item Tipo de equilibrio: \textbf{Nodo estable} , \[(tr A)^2 > 4 |A| \]
+	\item Estabilidad: \textbf{Asintóticamente estable}
+\end{itemize}
+
+\subsubsection*{Significado físico}
+
+El punto crítico $(0, 0)$ corresponde a:
+\[
+x = X - 70 = 0 \implies X = 70
+\]
+\[
+y = Y - 70 = 0 \implies Y = 70
+\]
+
+Esto significa que el sistema alcanza el equilibrio térmico cuando tanto el sólido como la capa tienen la misma temperatura del ambiente ($70^\circ$). Las trayectorias representan cómo las temperaturas relativas $x$ y $y$ decaen exponencialmente hacia cero, indicando que el sistema tiende al equilibrio térmico con el ambiente.
+% --- Figura: diagrama de fase (Parte C)
+
+\begin{figure}[htb]
+	\centering
+	\IfFileExists{Figures/phase_diagram.png}{%
+		\includegraphics[width=0.7\textwidth]{Figures/phase_diagram.png}%
+	}{%
+		\centering\small\texttt{Imagen Figures/phase\_diagram.png no encontrada.}%
+	}
+	\caption{Diagrama de fases del sistema lineal de la Parte C. El origen es un nodo estable (autovalores reales y negativos).}
+	\label{fig:phase}
+\end{figure}
+
+
+%===================================================================================
+% Conclusiones
+%-----------------------------------------------------------------------------------
+\section{Conclusiones}\label{sec:conc}
+
+	A continuación se presentan las conclusiones principales derivadas de este estudio, formuladas como observaciones aplicables al modelado y análisis del enfriamiento post-mortem:
+
+\begin{enumerate}
+	\item Los modelos matemáticos basados en ecuaciones diferenciales son herramientas eficaces para describir la dinámica térmica post-mortem. Al relacionar parámetros como la constante de enfriamiento, las condiciones ambientales y el acoplamiento entre compartimentos, es posible predecir curvas de temperatura que sirven de base para estimar el tiempo de la muerte.
+
+	\item La inclusión de efectos físicos relevantes —heterogeneidad térmica entre núcleo y capa externa, tasas de intercambio entre compartimentos y temperatura ambiental variable— permite construir modelos acoplados más realistas. Estas extensiones mejoran la capacidad predictiva y la interpretación de las trayectorias térmicas observadas en la práctica forense.
+
+	\item El análisis cualitativo (isoclinas, planos de fase y estudio de autovalores) aporta información esencial sobre la estabilidad de los equilibrios térmicos y las escalas temporales de relajación (modos rápidos y lentos). Este entendimiento geométrico es útil para diseñar protocolos de muestreo y para explicar por qué ciertas trayectorias convergen más rápidamente al equilibrio.
+
+	\item En el ámbito numérico, la comparación entre esquemas (Euler, Euler mejorado, Runge–Kutta) y la validación frente a soluciones analíticas o datos experimentales son indispensables. Métodos de orden superior, como RK4, ofrecen precisión superior con un coste computacional razonable, pero la elección del paso y del método debe ajustarse a la calidad y resolución de los datos disponibles.
+
+	\item Aunque los modelos simples facilitan el análisis, tienen limitaciones: suposiciones como propiedades térmicas constantes, homogeneidad del cuerpo y condiciones ambientales invariables pueden introducir sesgos en la estimación del tiempo de muerte. Por ello es crítico estimar parámetros a partir de datos y considerar la incorporación de efectos adicionales (ropa, masa corporal, variación ambiental) para mejorar la aplicabilidad forense.
+\end{enumerate}
+
+%===================================================================================
+
+
+
+%===================================================================================
+% Recomendaciones
+%-----------------------------------------------------------------------------------
+\section{Recomendaciones}\label{sec:rec}
+
+  En esta sección puede incluir recomendaciones sobre posibles formas de continuar
+  la investigación u otros temas relacionados.
+
+	A continuación se presentan recomendaciones concretas para continuar y ampliar
+	el trabajo desarrollado:
+
+	\begin{enumerate}
+		\item Realizar campañas experimentales controladas para recoger series temporales
+		de temperatura en cuerpos o análogos (phantoms) bajo distintas condiciones de
+		masa, ropa y exposición ambiental. Estos datos permitirán ajustar y validar los
+		parámetros del modelo y cuantificar la incertidumbre en las estimaciones del
+		tiempo de muerte.
+
+		\item Extender el modelo simple de dos compartimentos incorporando dependencias
+		temporales de la temperatura ambiente y propiedades térmicas que dependan de la
+		temperatura o del tiempo (p. ej. conductividad variable, radiación). Evaluar
+		el impacto de estas extensiones sobre las predicciones.
+
+		\item Integrar resultados en una guía práctica para peritos forenses, describiendo
+		limitaciones del modelo, intervalos de confianza en las estimaciones y condiciones
+		de aplicabilidad (p. ej. masa corporal, ropa, viento). Esto acercará la metodología
+		a la práctica pericial.
+	\end{enumerate}
+
+%===================================================================================
+
+
+
+%===================================================================================
+% Bibliografía
+%-----------------------------------------------------------------------------------
+\begin{thebibliography}{99}
+%-----------------------------------------------------------------------------------
+	\bibitem{zill} Dennis G. Zill. \emph{Ecuaciones diferenciales}. (Spanish edition of
+		"Differential Equations with Boundary-Value Problems"). Cengage Learning, 2013.
+
+	\bibitem{edwards_penney} C. Henry Edwards, David E. Penney. \emph{Differential
+		Equations and Boundary-Value Problems: Computing and Modeling}. 4th ed.,
+		Prentice Hall, 2008.
+
+	\bibitem{henssge} C. Henssge, N. Madea. "Estimación del intervalo postmortem: métodos
+		y procedimientos". En: manuales y revisiones forenses sobre termometría forense y
+		estimación del tiempo de muerte (varias ediciones). (Consultas y capítulos de
+		referencia para metodología experimental y práctica pericial.)
+
+	\bibitem{strogatz} Steven H. Strogatz. \emph{Nonlinear Dynamics and Chaos: With Applications
+		to Physics, Biology, Chemistry and Engineering}. 2nd ed., Westview Press, 2015.
+
+	\bibitem{burden} Richard L. Burden, J. Douglas Faires. \emph{Numerical Analysis}. 9th ed.,
+		Brooks/Cole (Cengage), 2011.
+
+	\bibitem{press} W. H. Press, S. A. Teukolsky, W. T. Vetterling, B. P. Flannery.
+		\emph{Numerical Recipes: The Art of Scientific Computing}. 3rd ed., Cambridge
+		University Press, 2007.
+
+	\bibitem{stewart} B. E. Stewart (editor). \emph{Forensic Science and its Application},
+		capítulos sobre métodos de estimación temporal y termometría forense.
+
+%-----------------------------------------------------------------------------------
+\end{thebibliography}
+
+%-----------------------------------------------------------------------------------
+
+\label{end}
+
+\end{document}
+
+%===================================================================================
