@@ -1,0 +1,3 @@
+\beamer@sectionintoc {1}{Parte A -- Ley de Newton}{4}{0}{1}
+\beamer@sectionintoc {2}{Parte B -- Bifurcaci\'on}{8}{0}{2}
+\beamer@sectionintoc {3}{Parte C -- Sistema 2-compartimentos}{10}{0}{3}
