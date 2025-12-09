@@ -35,6 +35,7 @@
 \subtitle{}
 \author{Olivia Ortiz Arboláez}
 \date{\today}
+\titlegraphic{\includegraphics[width=0.3\textwidth]{Figures/matcom_logo.png}}
 
 \begin{document}
 
@@ -55,20 +56,38 @@
 
 \begin{frame}
   \frametitle{Introducci\'on}
-  \begin{itemize}
-    \item Transferencia de calor y su modelado por EDOs: soluciones anal\'iticas en casos lineales y herramientas cualitativas para no linealidades.
-    \item Objetivo: aplicar t\'ecnicas anal\'iticas y num\'ericas a modelos t\'ermicos representativos y comparar esquemas num\'ericos.
-  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item Transferencia de calor y su modelado por EDOs: soluciones anal\'iticas en casos lineales y herramientas cualitativas para no linealidades.
+        \item Objetivo: aplicar t\'ecnicas anal\'iticas y num\'ericas a modelos t\'ermicos representativos y comparar esquemas num\'ericos.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{Figures/forense.png}
+      \end{figure}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \section{Parte A -- Ley de Newton}
 \begin{frame}
   \frametitle{Planteamiento (Parte A)}
-  \begin{itemize}
-    \item Temperatura ambiente: $T_a=70^{\circ}\mathrm{F}$ (constante).
-    \item Condici\'on inicial: $T(0)=98.6^{\circ}\mathrm{F}$ (momento de la muerte aproximado).
-    \item Mediciones: $T(0)=80^{\circ}\mathrm{F}$ a las 12:00 y $T(1)=75^{\circ}\mathrm{F}$ a la 13:00.
-  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \item Temperatura ambiente: $T_a=70^{\circ}\mathrm{F}$ (constante).
+        \item Condici\'on inicial: $T(0)=98.6^{\circ}\mathrm{F}$ (momento de la muerte aproximado).
+        \item Mediciones: $T(0)=80^{\circ}\mathrm{F}$ a las 12:00 y $T(1)=75^{\circ}\mathrm{F}$ a la 13:00.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{figure}
+        \includegraphics[width=0.8\textwidth]{Figures/termometer.png}
+      \end{figure}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -83,9 +102,18 @@
 
 \begin{frame}
   \frametitle{Estimaci\'on del tiempo de la muerte}
-  Para hallar $t$ cuando $T(t)=98.6$:\\[4pt]
-  $\;98.6=10e^{-\ln(2)\,t}+70\Rightarrow e^{-\ln(2)\,t}=2.86\Rightarrow t= -\dfrac{\ln(2.86)}{\ln 2}\approx -1.515\,$ horas.\\[6pt]
-  Interpretaci\'on: la muerte ocurri\'o aproximadamente $1.515$ h antes de las 12:00 (alrededor de las 10:29 AM).
+  \begin{columns}
+    \begin{column}{0.65\textwidth}
+      Para hallar $t$ cuando $T(t)=98.6$:\\[4pt]
+      $\;98.6=10e^{-\ln(2)\,t}+70\Rightarrow e^{-\ln(2)\,t}=2.86\Rightarrow t= -\dfrac{\ln(2.86)}{\ln 2}\approx -1.515\,$ horas.\\[6pt]
+      Interpretaci\'on: la muerte ocurri\'o aproximadamente $1.515$ h antes de las 12:00 (alrededor de las 10:29 AM).
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{Figures/clock.png}
+      \end{figure}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -103,6 +131,15 @@
   Observaci\'on: RK4 ofrece mayor precisi\'on; se calcul\'o el error absoluto y costo relativo en el reporte.
 \end{frame}
 
+\begin{frame}
+  \frametitle{Isoclinas y campo de direcciones}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/isoclinas_partA.png}
+    \caption{Visualizaci\'on de isoclinas para la Ley de Newton}
+  \end{figure}
+\end{frame}
+
 \section{Parte B -- Bifurcaci\'on}
 \begin{frame}
   \frametitle{Modelo (Parte B)}
@@ -117,6 +154,15 @@
   - En $u=0$: $f'(0)=\mu$ \; (estable para $\mu<0$, inestable para $\mu>0$).\\
   - En $u=\pm\sqrt{-\mu}$ (si $\mu<0$): $f' = -2\mu>0$ (ramas no triviales inestables).\\[6pt]
   Interpretaci\'on: bifurcaci\'on tipo horquilla subcr\'itica en $\mu=0$ (las ramas no triviales colapsan en la trivial y son inestables).
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diagrama de bifurcaci\'on}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figures/bifurcation_mu_u.png}
+    \caption{Diagrama de bifurcaci\'on para $u' = \mu u + u^{3}$}
+  \end{figure}
 \end{frame}
 
 \section{Parte C -- Sistema 2-compartimentos}
@@ -139,11 +185,29 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Plano de fase}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/plano_de_fase.png}
+    \caption{Plano de fase del sistema de dos compartimentos}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
   \frametitle{Interpretaci\'on f\'isica}
   \begin{itemize}
     \item El sistema modela intercambio t\'ermico entre el n\'ucleo y la capa externa con disipaci\'on al ambiente.
     \item Las trayectorias en el plano de fase muestran relajaci\'on hacia el equilibrio $(0,0)$; la geometr\'ia de las trayectorias depende de los autovalores y vectores propios.
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diagrama de fase detallado}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/phase_diagram.png}
+    \caption{Diagrama de fase con trayectorias}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
